@@ -1,0 +1,348 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style><!--
+h1 { font-size: 40px; line-height: 52px; text-align: center;}
+    h2 { font-size: 32px; line-height: 40px; }
+    h3 { font-size: 24px;  } /*line-height: 34px;*/
+    h4 { font-size: 22px; line-height: 32px; }
+    h5 { font-size: 16px; line-height: 20px; }
+    h6 { font-size: 14px; line-height: 18px; }
+    p { margin: 0 0 0; line-height: 1.7; }
+    p:last-child { margin: 0px; }
+    ul, ol { list-style: none; margin: 0; padding: 0; }
+    a { text-decoration: none; color: #777b80; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
+    a:focus, a:hover { text-decoration: none; color: #f96840; }
+    .btn-link { color: #304496; font-size: 14px; font-weight: 700; text-transform: uppercase; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; position: relative; letter-spacing: 0px; border-bottom: 1px solid #f96840; }
+    .btn-link:hover { color: #f96840; text-decoration: none; border-bottom: 1px solid #f96840; }
+    
+
+
+#page > h1 {
+visibility: hidden;
+    line-height: 0px;}  
+  
+    .marker-link {  
+                    color: #f96840; 
+                    font-size: 1.4em; 
+                    font-weight: 700; 
+                    text-align: left;
+                    text-transform: uppercase; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; 
+                    position: relative; 
+                    letter-spacing: 0px; 
+                    display: block;
+                    padding: 10px 0;
+                    display: block;
+                    width: 100%;
+            } 
+    
+    
+#map_wrapper { height: 450px;}
+#map_canvas { width: 100%; height: 100%; }
+.location-block { margin-bottom: 20px; }
+.location-content { font-size: 14px; font-weight: 500; }
+.location-head { margin-bottom: 20px; }
+.location-icon { font-size: 18px; color: #f96840; padding-right: 6px; }
+.location-title { font-weight: 600; color: #f96840; font-size: 18px; text-transform: uppercase; letter-spacing: 2px; }
+
+.info_content{background-color: #fff; padding: 10px; width: 300px; height: auto;}
+.info_location_name{color: #f96840; font-size: 12px; font-weight: 700; text-transform:uppercase; margin-bottom: 10px; }
+.info_location_text{ text-align: left; margin-top: 10px; color: #767a7f; font-size: 10px; font-weight:500;}
+.info_location_call{  text-align: left; font-size: 11px; color: #2e3133; font-weight: 600; }
+.info_location_call span{ text-align: left; padding-right: 8px; font-size: 14px; color: #f96840;}
+.mt30{margin-top:20px;}
+
+
+.info_location_text-2{ text-align: left; margin-top: 10px; color: #767a7f; font-size: 14px; font-weight:500;}
+.info_location_call-2{  text-align: left; font-size: 14px; color: #2e3133; font-weight: 600; }
+.info_location_call-2 span{ text-align: left; padding-right: 8px; font-size: 14px; color: #f96840;}
+.mt30{margin-top:20px;}
+  .info_location_horario{ text-align: left; margin-bottom: 5px; color: #767a7f; font-size: 14px; font-weight:500; }
+
+
+#content {
+    margin-top: 0px !important;
+}
+
+
+.container{margin-top:40px;}
+
+.caja-sucursales-v2{
+        width: 100%; 
+        margin: auto;
+      
+    }
+
+   #caja-mapa{
+        width: 100%; 
+        margin: auto;
+        margin-top:40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #map_wrapper{
+            width: 100%;
+            border-radius: 15px;
+        }
+    #markersGroup{
+            width: 100%;
+            height: auto; 
+            display: flex; 
+            flex-direction: row; 
+            justify-content: center; 
+            align-items: flex-start;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+
+.box-markers{
+    width:270px;
+    min-width: 230px;
+    margin: 10px 5px;
+
+ }
+
+    .caja-sucursales-v2 h3 {
+    font-size: 1.2em!important;
+    margin-bottom: 0;
+    }
+
+@media (max-width: 767px){
+        .caja-sucursales-v2{
+        width: 100%; 
+      
+    }
+
+    #caja-mapa {
+        flex-direction: column;
+        margin-top:0px;
+        }
+        #map_wrapper{
+            width: 100%;
+            height: 240px;
+        }
+        #markersGroup{
+            width: 100%;
+        }
+    }
+--></style>
+<div class="caja-sucursales-v2">
+<h1>Sucursales</h1>
+<div id="caja-mapa">
+<div id="map_wrapper">
+<div id="map_canvas" class="mapping"></div>
+</div>
+<div id="markersGroup">
+<div class="box-markers"><a class="marker-link" data-markerid="0" href="#">Monserrat</a>
+<p class="info_location_text-2">San José 426, CABA, C1076AAI</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4383-4209</p>
+<p class="info_location_horario">SABADO 18 dic. 9 a 20 hs.</p>
+<p class="info_location_horario">DOMINGO 19 dic. 11:30 a 18:30 hs.</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 9 a 20 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 9 a 16 hs.</p>
+
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="1" href="#">Barrio Norte</a>
+<p class="info_location_text-2">Gallo 1591, CABA, C1425EFG</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4826-8758</p>
+<p class="info_location_horario">SABADO 18 dic. 9:30 a 20:30 hs.</p>
+<p class="info_location_horario">DOMINGO 19 dic. 11 a 19 hs.</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 9:30 a 20:30 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 10 a 18 hs.</p>
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="2" href="#">Microcentro</a>
+<p class="info_location_text-2">Florida 146, CABA, C1005AAD</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4326-1549</p>
+<p class="info_location_horario">SABADO 18 dic. 11 a 17 hs.</p>
+<p class="info_location_horario">DOMINGO 19 dic. Cerrado</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 10:30 a 19 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 9 a 16 hs.</p>
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="3" href="#">Palermo Outlet</a>
+<p class="info_location_text-2">Aguirre 750, CABA, C1414ASP</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4772-1262</p>
+<p class="info_location_horario">SABADO 18 dic. 10:30 a 20 hs.</p>
+<p class="info_location_horario">DOMINGO 19 dic. 12 a 19:30 hs.</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 10:30 a 20 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 10 a 17 hs.</p>
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="4" href="#">Tribunales</a>
+<p class="info_location_text-2">Uruguay 626, CABA, C1015ABN</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4371-8198</p>
+<p class="info_location_horario">SABADO 18 dic. Cerrado</p>
+<p class="info_location_horario">DOMINGO 19 dic. Cerrado</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 8:30 a 18 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 8:30 a 14 hs.</p>
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="5" href="#">La Plata</a>
+<p class="info_location_text-2">Calle 49 629, La Plata, BA, B1900APY</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>0221 4215488</p>
+<p class="info_location_horario">SABADO 18 dic. 10:30 a 19 hs.</p>
+<p class="info_location_horario">DOMINGO 19 dic. Cerrado</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 10:30 a 19 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 9 a 15 hs.</p>
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="6" href="#">Martinez</a>
+<p class="info_location_text-2">H. Yrigoyen 3199, Martínez, BA, B1640</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4718-5823</p>
+<p class="info_location_horario">SABADO 18 dic. 10 a 20 hs.</p>
+<p class="info_location_horario">DOMINGO 19 dic. 11:30 a 19:30 hs.</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 10 a 20 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 10:30 a 17 hs.</p>
+</div>
+<div class="box-markers"><a class="marker-link" data-markerid="7" href="#">Obelisco</a>
+<p class="info_location_text-2">Av. Corrientes 460, CABA, C1043AAE</p>
+<p class="info_location_call-2"><span><i class="fa fa-phone"></i></span>011 4394-8177</p>
+<p class="info_location_horario">SABADO 18 dic. Cerrado</p>
+<p class="info_location_horario">DOMINGO 19 dic. Cerrado</p>
+<p class="info_location_horario">DEL 20 al 23 dic. 9 a 19 hs. </p>
+<p class="info_location_horario">VIERNES 24 dic. 9 a 15 hs.</p>
+</div>
+</div>
+</div>
+</div>
+<script>// <![CDATA[
+jQuery(function($) {
+        //Borro Breadcrum para subir el mapa
+        //$('#breadcrumb').remove();
+
+        // Asynchronously Load the map API 
+        var script = document.createElement('script');
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBoNT4P-YBcf8TJzgoTK_aptRrjsl7ZUTM&callback=initialize";
+        document.body.appendChild(script);
+    });
+
+    var map;
+    var markerArray = [];
+    
+    function initialize() {
+
+        var bounds = new google.maps.LatLngBounds();
+        var mapOptions = {
+            mapTypeId: 'roadmap',
+            center: { lat: -34.61315, lng: -58.37723 },
+disableDefaultUI: true,
+        };
+
+        // Display a map on the page
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        //map.setTilt(45);
+
+        // Multiple Markers
+        var markers = [
+            ['Monserrat', -34.613583,-58.385945],
+            ['Barrio Norte',-34.591915,-58.409033],
+            ['Microcentro',-34.606299, -58.375092], //-34.6062018,-58.3765666
+            ['Palermo Outlet',-34.5955009,-58.4376576], 
+            ['Tribunales',-34.601423, -58.386740],
+            ['La Plata', -34.9146486,-57.9509654],
+            ['Martinez',-34.5049577,-58.5345897],
+            ['Obelisco', -34.603217, -58.373381],
+        ];
+
+        // ShortList info
+        
+        
+        // Info Window Content
+        var infoWindowContent = [
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Monserrat</h3>' +
+                '<p class="info_location_text">San José 426, CABA, C1076AAI</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4383-4209  | <a href="https://www.google.com/maps?ll=-34.613583,-58.385945&amp;z=17&amp;t=m&amp;hl=es-ES&amp;gl=US&amp;mapclient=apiv3&amp;cid=1997079366511111193" class="btn-link">Abrir Mapa</a><br/>Lun a Sab 10:00 a 19:00 hs./ Dom 11:30 a 18:30</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Barrio Norte</h3>' +
+                '<p class="info_location_text">Gallo 1591, CABA, C1425EFG</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4826-8758  | <a href="https://www.google.com/maps?ll=-34.591915,-58.409033&amp;z=20&amp;t=m&amp;hl=es-ES&amp;gl=US&amp;mapclient=apiv3&amp;cid=16777811337773632264" class="btn-link">Abrir Mapa</a><br/>Lun a Sab 9:30 a 19:00 hs. Dom11:00 a 19:00</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Microcentro</h3>' +
+                '<p class="info_location_text">Florida 146, CABA, C1005AAD</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4326-1549 | <a href="https://g.page/briganti-microcentro?share" class="btn-link">Abrir Mapa</a><br/>Lun a Vie 10 a 18:30 hs./ Sab 11 a 17:00 hs.</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Palermo Outlet</h3>' +
+                '<p class="info_location_text">Aguirre 750, CABA, C1414ASP</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4772-1262 | <a href="https://goo.gl/maps/SUgL7mMK7r8gTGWeA" class="btn-link">Abrir Mapa</a><br/>Lun a Sab 11 a 19 hs. / Dom 12 a 19:00 hs.</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Tribunales</h3>' +
+                '<p class="info_location_text">Uruguay 626, CABA, C1015ABN</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4371-8198 | <a href="https://goo.gl/maps/RocoRKJ5gaRXaXre9" class="btn-link">Abrir Mapa</a><br/>Lun a Vie 9:00 a 18:00 hs.</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">La Plata</h3>' +
+                '<p class="info_location_text">Calle 49 629, La Plata, Buenos Aires, B1900APY</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>0221 4215488 | <a href="https://goo.gl/maps/S3QnK19t574CfyzcA" class="btn-link">Abrir Mapa</a><br/>Lun a Sab 9:30 a 18:30 hs.</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Martinez</h3>' +
+                '<p class="info_location_text">Hipólito Yrigoyen 3199, Martínez, Buenos Aires, B1640</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4718-5823 | <a href="https://g.page/briganti-martinez?share" class="btn-link">Abrir Mapa</a><br/>Lun a Sab 10:30 a 19:00 hs.</p>' +
+                '</div>'
+            ],
+            ['<div class="info_content">' +
+                '<h3 class="info_location_name">Obelisco</h3>' +
+                '<p class="info_location_text">Av. Corrientes 460, CABA, 1043</p>' +
+                '<p class="info_location_call"><span><i class="fa fa-phone"></i></span>011 4394-8177 | <a href="https://g.page/briganti-obelisco?share" class="btn-link">Abrir Mapa</a><br/>Lun a Vie 9:00 a 18:00 hs.</p>' +
+                '</div>'
+            ]
+        ];
+
+        // Display multiple markers on a map
+        var infoWindow = new google.maps.InfoWindow({ maxWidth: 480 }),
+            marker, i;
+
+        // Loop through our array of markers & place each one on the map  
+        for (i = 0; i < markers.length; i++) {
+            var position = new google.maps.LatLng(markers[i][1],
+                markers[i][2], markers[i][3], markers[i][4],markers[i][5],markers[i][6],markers[i][7],markers[i][8]);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: markers[i][0]
+            });
+            
+            markerArray[i]=marker;
+
+            // Allow each marker to have an info window    
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    map.panTo(this.getPosition());
+                    map.setZoom(16);
+                    infoWindow.setContent(infoWindowContent[i][0]);
+                    infoWindow.open(map, marker);
+
+                }
+            })(marker, i));
+
+            // Append a link to the markers DIV for each marker
+            //$('#markersGroup').append('<a class="marker-link" data-markerid="' + i + '" href="#">' + markers[i][0] + '<br/>'+infoWindowContent[i]+'</a> ');
+            //$('#markersGroup').append('<div class="row justify-content-center"><a class="marker-link" data-markerid="' + i + '" href="#">' + markers[i][0] + '</a></div>');
+
+
+            // Automatically center the map fitting all markers on the screen
+            map.fitBounds(bounds);
+        }
+
+
+            $('.marker-link').on('click', function () {
+                 google.maps.event.trigger(markerArray[$(this).data('markerid')], 'click');
+            });
+
+
+
+        // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+        var  tilesloadedListener = google.maps.event.addListener((map),  'tilesloaded', function(event) {
+            //this.setZoom(10);
+            google.maps.event.removeListener(tilesloadedListener);
+        });
+
+    }
+// ]]></script>
